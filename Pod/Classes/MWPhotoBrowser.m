@@ -362,6 +362,12 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         if (_startOnGrid) {
             [self showGrid:NO];
         }
+        if (_autoPlayOnAppear) {
+            MWPhoto *photo = [self photoAtIndex:_currentPageIndex];
+            if ([photo respondsToSelector:@selector(isVideo)] && photo.isVideo) {
+                [self playVideoAtIndex:_currentPageIndex];
+            }
+        }
     }
     
     // If rotation occured while we're presenting a modal
@@ -380,14 +386,14 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _viewIsActive = YES;
     
     // Autoplay if first is video
-    if (!_viewHasAppearedInitially) {
-        if (_autoPlayOnAppear) {
-            MWPhoto *photo = [self photoAtIndex:_currentPageIndex];
-            if ([photo respondsToSelector:@selector(isVideo)] && photo.isVideo) {
-                [self playVideoAtIndex:_currentPageIndex];
-            }
-        }
-    }
+//    if (!_viewHasAppearedInitially) {
+//        if (_autoPlayOnAppear) {
+//            MWPhoto *photo = [self photoAtIndex:_currentPageIndex];
+//            if ([photo respondsToSelector:@selector(isVideo)] && photo.isVideo) {
+//                [self playVideoAtIndex:_currentPageIndex];
+//            }
+//        }
+//    }
     
     _viewHasAppearedInitially = YES;
         
